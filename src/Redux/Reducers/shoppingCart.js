@@ -1,4 +1,4 @@
-import { PUT_ITEM, INCREMENT_ITEM, DECREMENT_ITEM } from 'Redux/Actions/shoppingCart'
+import { PUT_ITEM, REMOVE_ITEM, INCREMENT_ITEM, DECREMENT_ITEM } from 'Redux/Actions/shoppingCart'
 
 const initialState = {
     data: [],
@@ -20,9 +20,15 @@ export const shoppingCart = (state = initialState, action) => {
             newState.total += newItem.price
             return newState
         }
+        case REMOVE_ITEM: {
+            return {
+                ...state,
+                data: state.data.filter(item => item.id !== action.id)
+            }
+        }
         case INCREMENT_ITEM: {
             const newState = { ...state }
-            const item = newState.data.find((item) => item.id === action.id)
+            const item = newState.data.find(item => item.id === action.id)
             if (item) {
                 item.amount++
 
@@ -34,7 +40,7 @@ export const shoppingCart = (state = initialState, action) => {
             let total = state.total;
             const newState = {
                 ...state,
-                data: state.data.filter((item) => {
+                data: state.data.filter(item => {
                     if (item.id === action.id) {
                         total -= item.price
                         if (item.amount > 1) {

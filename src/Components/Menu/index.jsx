@@ -8,11 +8,6 @@ const menuItems = [
         key: "list",
         title: "Product List",
         href: "/"
-    },
-    {
-        key: "shopping-cart",
-        title: "Shopping Cart",
-        href: "/shoppingCart"
     }
 ]
 
@@ -31,7 +26,7 @@ const Menu = ({total}) => {
         <MenuAnt onClick={onItemSelected} selectedKeys={[itemSelected]} mode="horizontal">
             {menuItems.map(el => renderMenuItem(el))}
             <Button danger size="large" style={{float: "right", marginTop: "15px", marginRight: "15px"}}>
-                ${Math.abs(total).toFixed(2)}
+                <Link to="/shoppingCart">${Math.abs(total).toFixed(2)}</Link>
             </Button>
         </MenuAnt>
     )

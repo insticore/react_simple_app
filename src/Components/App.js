@@ -1,7 +1,7 @@
 import React from 'react';
-import ProductList from 'Pages/ProductList'
-import ProductDetails from 'Pages/ProductDetails'
-import ShoppingCart from 'Pages/ShoppingCart'
+import ProductList from './ProductList'
+import ProductDetails from './ProductDetails'
+import ShoppingCart from './ShoppingCart'
 
 import {
   BrowserRouter as Router,

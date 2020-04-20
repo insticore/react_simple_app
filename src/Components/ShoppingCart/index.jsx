@@ -3,11 +3,11 @@ import { Layout, List, Avatar, Button } from 'antd'
 import Menu from 'Components/Menu'
 import { AmountPicker } from './Blocks/AmountPicker'
 import { connect } from 'react-redux'
-import { incrementItem, decrementItem } from 'Redux/Actions/shoppingCart'
+import { incrementItem, decrementItem, removeItem } from 'Redux/Actions/shoppingCart'
 
 const { Header, Footer, Content } = Layout
 
-const ShoppingCart = ({shoppingCart, onIncrementItem, onDecrementItem}) => {
+const ShoppingCart = ({shoppingCart, onIncrementItem, onDecrementItem, onRemoveItem}) => {
     const renderItem = (item) => {
         const handleAmountChange = (positive) => {
             if (positive) {
@@ -15,6 +15,9 @@ const ShoppingCart = ({shoppingCart, onIncrementItem, onDecrementItem}) => {
             } else {
                 onDecrementItem(item.id)
             }
+        }
+        const handleRemove = () => {
+            onRemoveItem(item.id)
         }
         return (
             <List.Item key={item.id}>
@@ -26,7 +29,7 @@ const ShoppingCart = ({shoppingCart, onIncrementItem, onDecrementItem}) => {
 
                     title={item.name}
                 />
-                <AmountPicker amount={item.amount} onAmountChange={handleAmountChange} />
+                <AmountPicker amount={item.amount} onAmountChange={handleAmountChange} onRemoveItem={handleRemove} />
             </List.Item>
         )
     }
@@ -57,8 +60,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onIncrementItem: (id) => dispatch(incrementItem(id)),
-  onDecrementItem: (id) => dispatch(decrementItem(id))
+  onIncrementItem: id => dispatch(incrementItem(id)),
+  onDecrementItem: id => dispatch(decrementItem(id)),
+  onRemoveItem: id => dispatch(removeItem(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)
